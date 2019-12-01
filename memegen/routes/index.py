@@ -1,7 +1,7 @@
 import random
 from pathlib import Path
 
-from flask import (Blueprint, Markup,
+from quart import (Blueprint, Markup,
                    render_template, current_app, make_response)
 from markdown import markdown
 

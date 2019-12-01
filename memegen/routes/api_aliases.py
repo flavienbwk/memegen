@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from flask import Blueprint, current_app as app, redirect, request
+from quart import Blueprint, current_app as app, redirect, request
 from webargs import fields, flaskparser
 
 from ..extensions import cache

@@ -1,4 +1,4 @@
-from flask import Blueprint, current_app
+from quart import Blueprint, current_app
 from flask_api import exceptions
 
 from ..extensions import cache

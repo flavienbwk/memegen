@@ -1,7 +1,6 @@
 import os
 
-from flask import request, current_app
-from flask_api import FlaskAPI
+from quart import request, current_app, Quart
 from flask_api.exceptions import APIException, NotFound
 import bugsnag
 from bugsnag.flask import handle_exceptions
@@ -32,7 +31,7 @@ class InvalidImageLink(APIException):
 
 
 def create_app(config):
-    app = FlaskAPI(__name__)
+    app = Quart(__name__)
     app.config.from_object(config)
 
     configure_exceptions(app)

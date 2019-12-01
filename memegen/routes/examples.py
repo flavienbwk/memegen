@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, current_app, make_response
+from quart import Blueprint, render_template, current_app, make_response
 
 from ._utils import samples
 

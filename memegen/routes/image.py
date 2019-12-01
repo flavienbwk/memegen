@@ -1,4 +1,4 @@
-from flask import Blueprint, current_app, request, redirect
+from quart import Blueprint, current_app, request, redirect
 from webargs import fields, flaskparser
 import log
 

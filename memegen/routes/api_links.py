@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from flask import Blueprint, current_app as app, redirect
+from quart import Blueprint, current_app as app, redirect
 
 from ..domain import Text
 

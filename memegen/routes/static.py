@@ -1,4 +1,4 @@
-from flask import Blueprint
+from quart import Blueprint
 
 
 blueprint = Blueprint('static', __name__, static_folder="../static")

@@ -6,9 +6,9 @@ from memegen.factory import create_app
 from memegen.domain import Text
 
 
-def run():
+async def run():
     app = create_app(ProductionConfig)
-    with app.app_context():
+    async with app.app_context():
 
         options = []
         for template in app.template_service.all():

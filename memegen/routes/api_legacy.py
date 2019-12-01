@@ -1,4 +1,4 @@
-from flask import Blueprint, current_app as app, redirect
+from quart import Blueprint, current_app as app, redirect
 
 from ._utils import route
 
