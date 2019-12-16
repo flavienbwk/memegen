@@ -1,45 +1,28 @@
-"""Unit tests configuration file."""
-
-from unittest.mock import Mock
+"""Integration tests configuration file."""
 
 import pytest
 
-from memegen import services
-from memegen.domain import Template
+from memegen.factory import create_app
+from memegen.settings import get_config
+
+from memegen.tests.conftest import pytest_configure  # pylint: disable=unused-import
 
 
-def pytest_configure(config):
-    terminal = config.pluginmanager.getplugin('terminal')
-
-    class QuietReporter(terminal.TerminalReporter):
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.verbosity = 0
-            self.showlongtestinfo = False
-            self.showfspath = False
-
-    terminal.TerminalReporter = QuietReporter
+@pytest.yield_fixture(scope='session')
+def app():
+    yield create_app(get_config('test'))
 
 
-@pytest.fixture
-def template_service():
-    return services.template.TemplateService(template_store=Mock())
+@pytest.yield_fixture
+def client(app):  # pylint: disable=redefined-outer-name
+    yield app.test_client()
 
 
-@pytest.fixture
-def link_service():
-    return services.link.LinkService(template_store=Mock())
+@pytest.yield_fixture
+def public_client(app):  # pylint: disable=redefined-outer-name
+    backup = app.config['WATERMARK_OPTIONS']
+    app.config['WATERMARK_OPTIONS'] = ['memegen.link']
 
+    yield app.test_client()
 
-@pytest.fixture
-def image_service():
-    return services.image.ImageService(
-        template_store=Mock(),
-        font_store=Mock(),
-        image_store=Mock(),
-    )
-
-
-@pytest.fixture
-def template():
-    return Template('abc', name='ABC', lines=['foo', 'bar'])
+    app.config['WATERMARK_OPTIONS'] = backup

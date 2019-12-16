@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  memegen:
+    build: .
+    restart: on-failure
+    volumes:
+      - ./memegen/data:/root/memegen/data
+    ports:
+      - 8080:5000
